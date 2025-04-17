@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class MoveComponent : MonoBehaviour
 {
-    [SerializeField] private string identifier;
-    
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigidbody2d;
 
     public bool affectedByGravity = true;
     
@@ -14,21 +12,21 @@ public class MoveComponent : MonoBehaviour
 
     public float acceleration = 1f;
     public float deceleration = 1f;
-    
-    private float currentSpeedX, currentSpeedY, currentSpeedZ;
-    
-    public Vector3 maximumSpeed = new(10f, 999f, 10f);
 
-    private Vector3 moveDirection = new(0f, 0f, 0f);
+    public float unitScalar = 1f;
+    
+    private Vector2 moveDirection = new(0f, 0f);
+    private Vector2 currentSpeed;
+    public Vector2 maximumSpeed = new(10f, 999f);
 
     void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
     
     private void Accelerate(ref float speedVar, float direction)
     {
-        speedVar += (acceleration * 100f) * direction * Time.deltaTime;
+        speedVar += (acceleration * unitScalar) * direction/* * Time.fixedDeltaTime*/;
     }
 
     private void Cap(ref float speedVar, float speedCap, float direction)
@@ -47,28 +45,18 @@ public class MoveComponent : MonoBehaviour
         }
     }
     
-    public void CopyCurrentSpeed(MoveComponent moverEnvied)
-    {
-        SetCurrentSpeed(moverEnvied.GetCurrentSpeed());
-    }
-
-    public void CopyMoveDirection(MoveComponent moverEnvied)
-    {
-        SetMoveDirection(moverEnvied.GetMoveDirection());
-    }
-    
     private void Decelerate(ref float speedVar)
     {
-        speedVar += (deceleration * 100f) * Mathf.Sign(-speedVar) * Time.deltaTime;
-        if (Mathf.Abs(speedVar) <= (deceleration * 100f))
+        speedVar += (deceleration * unitScalar) * Mathf.Sign(-speedVar)/* * Time.fixedDeltaTime*/;
+        if (Mathf.Abs(speedVar) <= (deceleration * unitScalar))
         {
             speedVar = 0f;
         }
     }
     
-    public Vector3 GetCurrentSpeed()
+    public Vector2 GetCurrentSpeed()
     {
-        return new Vector3(currentSpeedX, currentSpeedY, currentSpeedZ);
+        return currentSpeed;
     }
 
     public Vector3 GetMoveDirection()
@@ -78,98 +66,71 @@ public class MoveComponent : MonoBehaviour
 
     public bool IsAscending()
     {
-        return currentSpeedY > 0f;
+        return currentSpeed.y > 0f;
     }
     
     public bool IsDescending()
     {
-        return currentSpeedY < 0f;
-    }
-    public void Bounce(float bounceHeight)
-    {
-        Debug.Log("Bounce applied! New height: " + bounceHeight);
-        currentSpeedY = Mathf.Sqrt((bounceHeight * 100f) * -2f * (jumpGravity * 1f));
-    }
-    private void Jump()
-    {
-        currentSpeedY = Mathf.Abs(Mathf.Sqrt((jumpHeight * 100f) * -2f * (jumpGravity * 1f)));
-    }
-
-    public void MakeIntoProjectile()
-    {
-        moveDirection = transform.forward;
-    }
-
-    public void SetCurrentSpeed(Vector3 newSpeed)
-    {
-        currentSpeedX = newSpeed.x;
-        currentSpeedY = newSpeed.y;
-        currentSpeedZ = newSpeed.z;
+        return currentSpeed.y < 0f;
     }
     
-    public void SetHorizontalSpeedToMax()
+    private void Jump()
     {
-        currentSpeedX = moveDirection.x * maximumSpeed.x;
-        currentSpeedZ = moveDirection.z * maximumSpeed.z;
+        currentSpeed.y = Mathf.Abs(Mathf.Sqrt((jumpHeight * unitScalar) * -2f * (jumpGravity * 1f)));
     }
 
-    public void SetMoveDirection(Vector3 newMoveDirection)
+    public void SetCurrentSpeed(Vector2 newSpeed)
+    {
+        currentSpeed = newSpeed;
+    }
+
+    public void SetMoveDirection(Vector2 newMoveDirection)
     {
         moveDirection = newMoveDirection;
     }
     
     public void SetMoveDirectionToJump()
     {
-        moveDirection = new(moveDirection.x, 1f, moveDirection.z);
+        moveDirection = new(moveDirection.x, 1f);
     }
 
     public void Move(bool isGrounded = false)
     {
         if (Mathf.Abs(moveDirection.x) != 0f)
         {
-            Accelerate(ref currentSpeedX, moveDirection.x);
+            Accelerate(ref currentSpeed.x, moveDirection.x);
         }
         else
         {
-            Decelerate(ref currentSpeedX);
+            Decelerate(ref currentSpeed.x);
         }
 
         if (!affectedByGravity)
         {
             if (Mathf.Abs(moveDirection.y) != 0f)
             {
-                Accelerate(ref currentSpeedY, moveDirection.y);
+                Accelerate(ref currentSpeed.y, moveDirection.y);
             }
             else
             {
-                Decelerate(ref currentSpeedY);
+                Decelerate(ref currentSpeed.y);
             }
-        }
-
-        if (Mathf.Abs(moveDirection.z) != 0f)
-        {
-            Accelerate(ref currentSpeedZ, moveDirection.z);
         }
         else
         {
-            Decelerate(ref currentSpeedZ);
-        }
-
-        if (affectedByGravity)
-        {
-            if (currentSpeedY > 0f)
+            if (currentSpeed.y > 0f)
             {
-                currentSpeedY += (jumpGravity * 100f) * Time.deltaTime;
+                currentSpeed.y += (jumpGravity * unitScalar)/* * Time.fixedDeltaTime*/;
             }
             else
             {
-                currentSpeedY += (fallGravity * 100f) * Time.deltaTime;
+                currentSpeed.y += (fallGravity * unitScalar)/* * Time.fixedDeltaTime*/;
             }
         }
 
         if (isGrounded)
         {
-            currentSpeedY = 0f;
+            currentSpeed.y = 0f;
         }
 
         if (moveDirection.y >= 1f && affectedByGravity && isGrounded)
@@ -177,25 +138,21 @@ public class MoveComponent : MonoBehaviour
             Jump();
         }
 
-        Cap(ref currentSpeedX, maximumSpeed.x, moveDirection.x);
+        Cap(ref currentSpeed.x, maximumSpeed.x, moveDirection.x);
         if (affectedByGravity)
         {
-            Cap(ref currentSpeedY, maximumSpeed.y, -1f);
+            Cap(ref currentSpeed.y, maximumSpeed.y, -1f);
         }
         else
         {
-            Cap(ref currentSpeedY, maximumSpeed.y, moveDirection.y);
+            Cap(ref currentSpeed.y, maximumSpeed.y, moveDirection.y);
         }
 
-        Cap(ref currentSpeedZ, maximumSpeed.z, moveDirection.z);
+        if (rigidbody2d != null)
+        {
+            //rigidbody2d.AddForce(currentSpeed/* * Time.fixedDeltaTime*/, ForceMode2D.Impulse);
 
-        if (rigidbody2D != null)
-        {
-            rigidbody2D.velocity = new Vector2(currentSpeedX, currentSpeedY);// * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(currentSpeedX, currentSpeedY, 0f) * Time.deltaTime;
+            rigidbody2d.velocity = currentSpeed;// * Time.fixedDeltaTime;
         }
     }
 }
