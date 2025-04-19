@@ -429,7 +429,7 @@ MonoBehaviour:
       m_Flags: 4
     - m_Name: up
       m_Id: ce41dc0f-f011-43c3-bdcf-5577590b2137
-      m_Path: <Keyboard>/w
+      m_Path: <Keyboard>/q
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -524,6 +524,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Jump
       m_Flags: 0
+    - m_Name: 
+      m_Id: a4297b38-41c9-49a8-8fed-3c5f67e83e50
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
     m_Flags: 0
   movementDirection: {x: 0, y: 0}
   groundCheckTransform: {fileID: 1290341340}
@@ -548,13 +556,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affectedByGravity: 1
-  jumpHeight: 200
-  jumpGravity: -1
-  fallGravity: -1
-  acceleration: 2
-  deceleration: 1
+  jumpHeight: 215
+  jumpGravity: -0.9
+  fallGravity: -1.1
+  acceleration: 2.5
+  deceleration: 2
   unitScalar: 1
-  maximumSpeed: {x: 20, y: 30}
+  maximumSpeed: {x: 25, y: 40}
 --- !u!50 &192393094
 Rigidbody2D:
   serializedVersion: 4
@@ -975,8 +983,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6239073c79e6893822fc82d614aff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 192393090}
+  playerTarget: {fileID: 192393090}
   zoom: 7.5
+  smoothTime: 0.05
 --- !u!4 &555737984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6901463256901078989, guid: 4b07b65f9af1d1151a3043dd17d79e80, type: 3}
