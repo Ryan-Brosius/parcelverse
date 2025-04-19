@@ -14,7 +14,7 @@ public class CameraBase : MonoBehaviour
         GetComponent<Camera>().orthographicSize = zoom;
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 playerPosition = new(playerTarget.transform.position.x, playerTarget.transform.position.y, -10f);
         Vector3 mousePosition = GetComponent<Camera>().ScreenToWorldPoint(new(Input.mousePosition.x, 
