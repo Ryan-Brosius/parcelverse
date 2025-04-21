@@ -201,10 +201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   affectedByGravity: 1
   jumpHeight: 215
-  jumpGravity: -0.9
-  fallGravity: -1.1
-  acceleration: 2.5
-  deceleration: 2
+  jumpGravity: -0.8
+  fallGravity: -1.2
+  acceleration: 3
+  deceleration: 2.5
   unitScalar: 1
   maximumSpeed: {x: 25, y: 40}
 --- !u!114 &8447475548640454576
