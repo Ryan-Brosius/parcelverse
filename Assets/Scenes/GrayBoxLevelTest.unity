@@ -1294,7 +1294,8 @@ MonoBehaviour:
   letterPrefab: {fileID: 280206370387117399, guid: f9ffd9e39f53bfb489a8798915f73b51, type: 3}
   packagePrefab: {fileID: 280206370387117399, guid: 07ed93c651619054ea9aeacbd1517421, type: 3}
   firePoint: {fileID: 1981261090}
-  fireForce: 20
+  letterFireForce: 10
+  packageFireForce: 6
   trajectoryTimeStep: 0.1
   maxTrajectorySteps: 100
   maxTrajectoryDistance: 20
