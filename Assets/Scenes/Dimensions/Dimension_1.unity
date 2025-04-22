@@ -3106,6 +3106,7 @@ MonoBehaviour:
   maxTrajectoryDistance: 20
   trajectoryMaterial: {fileID: 0}
   raycastCamera: {fileID: 1307171399}
+  player: {fileID: 647470883}
 --- !u!1001 &2051873565
 PrefabInstance:
   m_ObjectHideFlags: 0

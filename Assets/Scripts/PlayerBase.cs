@@ -217,6 +217,9 @@ public class PlayerBase : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (groundCheckTransform == null) return;
+
+        Gizmos.color = IsGrounded() ? Color.green : Color.red;
         Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckRadius);
     }
 }

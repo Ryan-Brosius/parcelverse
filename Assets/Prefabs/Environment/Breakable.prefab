@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4415972643364970700}
   - component: {fileID: 4957772450475745699}
   - component: {fileID: 4836421858562162273}
-  - component: {fileID: -6728148484169176673}
+  - component: {fileID: -4094611208572425626}
   m_Layer: 6
-  m_Name: package_prefab
+  m_Name: Breakable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-6728148484169176673
+--- !u!114 &-4094611208572425626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

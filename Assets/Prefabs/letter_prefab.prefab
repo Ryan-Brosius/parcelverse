@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4812324207206679511}
   - component: {fileID: 2695928509691376349}
   - component: {fileID: 5125034711396671585}
+  - component: {fileID: -8973803276021756466}
   m_Layer: 7
   m_Name: letter_prefab
   m_TagString: Untagged
@@ -204,3 +205,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8973803276021756466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431193953578307021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b492c416980de443b010126b708ab58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

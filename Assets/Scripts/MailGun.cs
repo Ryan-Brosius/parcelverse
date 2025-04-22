@@ -34,11 +34,14 @@ public class MailGun : MonoBehaviour
     // I need an extra camera in the scene rn to actually raycast
     // raycasting is fucked up with the other cameras...
     // Ryan TODO fix this so it isnt a drag/drop later
-    [Header("Camera")]
+    [Header("Other References")]
     [SerializeField] private Camera raycastCamera;
+    [SerializeField] private Transform player;
 
     private MailMode currentMode = MailMode.Letter;
     private LineRenderer trajectoryLine;
+    private Vector3 mouseWorldPos;
+    private float localXPos;
 
     void Start()
     {
@@ -53,18 +56,28 @@ public class MailGun : MonoBehaviour
         trajectoryLine.widthMultiplier = 0.05f;
         trajectoryLine.numCapVertices = 2;
         trajectoryLine.textureMode = LineTextureMode.Tile;
+
+        localXPos = transform.localPosition.x;
     }
 
     void Update()
     {
+        mouseWorldPos = raycastCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        PutCorrectSide();
         RotateTowardsMouse();
         HandleInput();
         HandleSlowMotion();
     }
 
+    void PutCorrectSide()
+    {
+        if (mouseWorldPos.x > player.position.x) transform.localPosition = new Vector3(localXPos, transform.localPosition.y);
+        else transform.localPosition = new Vector3(-localXPos, transform.localPosition.y);
+    }
+
     void RotateTowardsMouse()
     {
-        Vector3 mouseWorldPos = raycastCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = transform.position.z;
         Vector3 direction = mouseWorldPos - transform.position;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, Mathf.Infinity);
@@ -139,7 +152,7 @@ public class MailGun : MonoBehaviour
 
             newPoint = startPos + velocity * time + 0.5f * new Vector2(0, simulatedGravity) * time * time;
 
-            RaycastHit2D hit = Physics2D.Linecast(previousPoint, newPoint);
+            RaycastHit2D hit = Physics2D.Linecast(previousPoint, newPoint, LayerMask.GetMask("Ground"));
             if (hit.collider != null)
             {
                 points.Add(hit.point);
