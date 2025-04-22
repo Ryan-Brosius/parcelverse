@@ -13,6 +13,11 @@ public class Recipient : MonoBehaviour
         {
             hasReceivedMail = true;
             dialogueBubble.SetActive(false);
+
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.TriggerLevelEnd();
+            }
         }
     }
 }
