@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Level References")]
     [SerializeField] int level = 0;
-    [SerializeField] Recipient recipient;
 
     public static GameManager instance;
 

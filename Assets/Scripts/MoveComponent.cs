@@ -19,6 +19,8 @@ public class MoveComponent : MonoBehaviour
     private Vector2 currentSpeed;
     public Vector2 maximumSpeed = new(10f, 999f);
 
+    private Vector2 externalForce = Vector2.zero;
+
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -79,7 +81,7 @@ public class MoveComponent : MonoBehaviour
         currentSpeed.y = Mathf.Abs(Mathf.Sqrt((jumpHeight * unitScalar) * -2f * (jumpGravity * 1f)));
     }
 
-    public void SetCurrentSpeed(Vector2 newSpeed)
+    public void SetCurrentSpeed(Vector2 newSpeed, bool? isOverride = false)
     {
         currentSpeed = newSpeed;
     }
@@ -94,6 +96,11 @@ public class MoveComponent : MonoBehaviour
         moveDirection = new(moveDirection.x, 1f);
     }
 
+    public void AddExternalForce(Vector2 force)
+    {
+        externalForce += force;
+    }
+
     public void Move(bool isGrounded = false)
     {
         if (Mathf.Abs(moveDirection.x) != 0f)
@@ -102,7 +109,15 @@ public class MoveComponent : MonoBehaviour
         }
         else
         {
-            Decelerate(ref currentSpeed.x);
+            if (Mathf.Abs(externalForce.x) > 0.1f)
+            {
+                Decelerate(ref externalForce.x);
+            }
+            else
+            {
+                externalForce.x = 0f;
+                Decelerate(ref currentSpeed.x);
+            }
         }
 
         if (!affectedByGravity)
@@ -118,7 +133,12 @@ public class MoveComponent : MonoBehaviour
         }
         else
         {
-            if (currentSpeed.y > 0f)
+            if (externalForce.y > 0f)
+            {
+                externalForce.y += (fallGravity * unitScalar);
+                externalForce.y = Mathf.Max(0, externalForce.y);
+            }
+            else if (currentSpeed.y > 0f)
             {
                 currentSpeed.y += (jumpGravity * unitScalar)/* * Time.fixedDeltaTime*/;
             }
@@ -148,11 +168,11 @@ public class MoveComponent : MonoBehaviour
             Cap(ref currentSpeed.y, maximumSpeed.y, moveDirection.y);
         }
 
+
         if (rigidbody2d != null)
         {
             //rigidbody2d.AddForce(currentSpeed/* * Time.fixedDeltaTime*/, ForceMode2D.Impulse);
-
-            rigidbody2d.velocity = currentSpeed;// * Time.fixedDeltaTime;
+            rigidbody2d.velocity = currentSpeed + externalForce;// * Time.fixedDeltaTime;
         }
     }
 }
