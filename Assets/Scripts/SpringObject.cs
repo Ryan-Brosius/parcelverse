@@ -17,6 +17,7 @@ public class SpringObject : MonoBehaviour
             if (collision.gameObject.TryGetComponent<MoveComponent>(out MoveComponent mc))
             {
                 var force = new Vector2(0.0f, velocity);
+                mc.SetCurrentSpeed(new Vector2(mc.GetCurrentSpeed().x, 0.0f));
                 mc.AddExternalForce(force * 1.5f);  // idk why the math isnt lined up nor do I feel like trying
             }
             else
@@ -26,11 +27,8 @@ public class SpringObject : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
-        {
-            //rb.AddForce(Vector2.up * springForce, ForceMode2D.Impulse);
-        }
+        OnTriggerEnter2D(collision);
     }
 }

@@ -81,7 +81,7 @@ public class MoveComponent : MonoBehaviour
         currentSpeed.y = Mathf.Abs(Mathf.Sqrt((jumpHeight * unitScalar) * -2f * (jumpGravity * 1f)));
     }
 
-    public void SetCurrentSpeed(Vector2 newSpeed, bool? isOverride = false)
+    public void SetCurrentSpeed(Vector2 newSpeed)
     {
         currentSpeed = newSpeed;
     }

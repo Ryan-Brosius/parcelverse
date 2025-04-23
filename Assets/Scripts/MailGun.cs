@@ -42,6 +42,7 @@ public class MailGun : MonoBehaviour
     private LineRenderer trajectoryLine;
     private Vector3 mouseWorldPos;
     private float localXPos;
+    private float previousTimeScale;
 
     void Start()
     {
@@ -100,14 +101,22 @@ public class MailGun : MonoBehaviour
 
     void HandleSlowMotion()
     {
+        if (Input.GetKeyDown(aimKey))
+        {
+            previousTimeScale = Time.timeScale;
+            if (previousTimeScale < 0.5f) return;
+            Time.timeScale = 0.5f;
+        }
+
         if (Input.GetKey(aimKey))
         {
-            Time.timeScale = 0.5f;
             ShowTrajectory(currentMode == MailMode.Letter ? letterPrefab : packagePrefab);
         }
-        else
+
+        if (Input.GetKeyUp(aimKey))
         {
-            Time.timeScale = 1f;
+            if (Time.timeScale != 0.5f) return;
+            Time.timeScale = previousTimeScale;
             trajectoryLine.positionCount = 0;
         }
     }

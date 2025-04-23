@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    private bool restarting = false;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -34,6 +36,22 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         LevelStartShader(1f);
+    }
+
+    public void restartLevel()
+    {
+        if (restarting) return;
+        restarting = true;
+
+        LevelEndShader(.5f);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        asyncLoad.allowSceneActivation = false;
+
+        DOVirtual.DelayedCall(.6f, () =>
+        {
+            asyncLoad.allowSceneActivation = true;
+        });
     }
 
     public void TriggerLevelEnd()
