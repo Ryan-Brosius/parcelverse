@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         LevelEndShader(2f);
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         asyncLoad.allowSceneActivation = false;
 
         DOVirtual.DelayedCall(2.3f, () =>
