@@ -15,6 +15,7 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] float groundCheckRadius = 0.5f;
+    [SerializeField] Vector2 groundCheckSize = new(0.5f, 0.5f);
     [SerializeField] LayerMask groundLayer;
 
     private float coyoteTimeTimer;
@@ -207,7 +208,8 @@ public class PlayerBase : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheckTransform.position, groundCheckRadius, groundLayer);
+        //return Physics2D.OverlapCircle(groundCheckTransform.position, groundCheckRadius, groundLayer);
+        return Physics2D.OverlapBox(groundCheckTransform.position, groundCheckSize, 0f, groundLayer);
     }
 
     void ReceiveInput()
@@ -220,6 +222,7 @@ public class PlayerBase : MonoBehaviour
         if (groundCheckTransform == null) return;
 
         Gizmos.color = IsGrounded() ? Color.green : Color.red;
-        Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckRadius);
+        //Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckRadius);
+        Gizmos.DrawWireCube(groundCheckTransform.position, groundCheckSize);
     }
 }
