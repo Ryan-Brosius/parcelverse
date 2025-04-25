@@ -12,17 +12,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Dimensions/Dimension_1_Tutorial.unity
     guid: 8dfce567d3c89f547b65313d9255e950
   - enabled: 1
-    path: Assets/Scenes/Dimensions/Dimension_5_Challenge.unity
-    guid: 0269ddd33895f686f9c5c82ff854f2ef
-  - enabled: 1
-    path: Assets/Scenes/Dimensions/Dimension_2_real.unity
-    guid: b8c088e129a4b4445ae779a3b143459f
+    path: Assets/Scenes/Dimensions/Dimension_6_Basketmail.unity
+    guid: 7d81a3f5cba0ae0d787767bbbf6e247e
   - enabled: 1
     path: Assets/Scenes/Dimensions/Dimension_3_Descent.unity
     guid: 38120b380175511ad83f603eff93038c
   - enabled: 1
     path: Assets/Scenes/Dimensions/Dimension_4_Aim.unity
     guid: 0cb3446f8afd3727192fcd059ea2275d
+  - enabled: 1
+    path: Assets/Scenes/Dimensions/Dimension_5_Challenge.unity
+    guid: 0269ddd33895f686f9c5c82ff854f2ef
+  - enabled: 1
+    path: Assets/Scenes/Dimensions/Dimension_2_real.unity
+    guid: b8c088e129a4b4445ae779a3b143459f
   - enabled: 1
     path: Assets/Scenes/Test Scenes/Dimension 0 - Test.unity
     guid: 2cda990e2423bbf4892e6590ba056729

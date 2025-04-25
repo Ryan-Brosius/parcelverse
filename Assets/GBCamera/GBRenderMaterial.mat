@@ -94,7 +94,7 @@ Material:
     - PixelSnap: 1
     - _BumpScale: 1
     - _ColorCount: 32
-    - _ColorStreaks: 0.9
+    - _ColorStreaks: 0
     - _Cutoff: 0.5
     - _Darkness: 0
     - _DarknessFade: 0
@@ -102,7 +102,7 @@ Material:
     - _DstBlend: 0
     - _EmissionScaleUI: 0
     - _Fade: 0.8
-    - _FadeAmount: 1
+    - _FadeAmount: 0
     - _Glossiness: 0.5
     - _Metallic: 0
     - _Mode: 0
@@ -111,11 +111,11 @@ Material:
     - _PaletteShift: 0
     - _PaletteSize: 32
     - _Parallax: 0.02
-    - _PixelPower: 0.9
+    - _PixelPower: 0
     - _Shade: 1
     - _SortMode: 0
     - _SrcBlend: 1
-    - _TrippyPower: 0.7
+    - _TrippyPower: 0
     - _UVSec: 0
     - _UseDarkPalette: 0
     - _ZWrite: 1
