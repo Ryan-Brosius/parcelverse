@@ -125,7 +125,7 @@ public class PlayerBase : MonoBehaviour
                 coyoteTimeTimer -= Time.deltaTime;
                 jumpBufferTimer -= Time.deltaTime;
 
-                if (jump.IsPressed())
+                if (jump.triggered)
                 {
                     jumpBufferTimer = jumpBufferTimerSet;
                 }
@@ -202,6 +202,8 @@ public class PlayerBase : MonoBehaviour
 
     private void TransitionToFalling()
     {
+        coyoteTimeTimer = coyoteTimeTimerSet;
+        
         statesLog.Add(States.Falling);
         currentState = States.Falling;
     }

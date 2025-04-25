@@ -395,7 +395,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  coyoteTimeTimerSet: 1
+  coyoteTimeTimerSet: 0.5
   jumpBufferTimerSet: 0.2
   jumpInterruptMinimumVelocity: 7
   currentState: 0
