@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -6,6 +7,14 @@ using UnityEngine;
 public class BreakableObject : MonoBehaviour
 {
     [SerializeField] private string targetTag = "MailProjectile";
+    
+    [SerializeField] private LayerMask defaultLayer;
+    [SerializeField] private LayerMask groundLayer;
+
+    private void Start()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Default");;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -17,6 +26,13 @@ public class BreakableObject : MonoBehaviour
                 DestroySequence();
                 mp.CanTrigger = false;
             }
+        }
+
+        // All of this is to fix an exploit where the player can jump on freshly spawned boxes, leading to infinite
+        // jumps.
+        if (groundLayer.Contains(collision.gameObject.layer))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ground"); //gameObject.layer = groundLayer;
         }
     }
 

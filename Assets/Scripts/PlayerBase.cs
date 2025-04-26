@@ -171,6 +171,8 @@ public class PlayerBase : MonoBehaviour
         {
             mover.Move(IsGrounded());
         }
+
+        groundCheckTransform.localPosition = Vector2.down;
     }
 
     private States GetPreviousState()
@@ -202,7 +204,10 @@ public class PlayerBase : MonoBehaviour
 
     private void TransitionToFalling()
     {
-        coyoteTimeTimer = coyoteTimeTimerSet;
+        if (GetPreviousState() == States.Idle || GetPreviousState() == States.Walking)
+        {
+            coyoteTimeTimer = coyoteTimeTimerSet;
+        }
         
         statesLog.Add(States.Falling);
         currentState = States.Falling;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4957772450475745699}
   - component: {fileID: 4836421858562162273}
   - component: {fileID: -6728148484169176673}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: package_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,3 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: MailProjectile
+  defaultLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
