@@ -55,7 +55,16 @@ public class MoveComponent : MonoBehaviour
             speedVar = 0f;
         }
     }
-    
+
+    private void Decelerate2(ref float speedVar)
+    {
+        speedVar += (deceleration * unitScalar) * Mathf.Sign(-speedVar) * .5f/* * Time.fixedDeltaTime*/;
+        if (Mathf.Abs(speedVar) <= (deceleration * unitScalar))
+        {
+            speedVar = 0f;
+        }
+    }
+
     public Vector2 GetCurrentSpeed()
     {
         return currentSpeed;
@@ -106,16 +115,20 @@ public class MoveComponent : MonoBehaviour
         if (Mathf.Abs(moveDirection.x) != 0f)
         {
             Accelerate(ref currentSpeed.x, moveDirection.x);
+
+            if (Mathf.Abs(externalForce.x) > 0f)
+            {
+                Decelerate2(ref externalForce.x);
+            }
         }
         else
         {
-            if (Mathf.Abs(externalForce.x) > 0.1f)
+            if (Mathf.Abs(externalForce.x) > 0f)
             {
                 Decelerate(ref externalForce.x);
             }
             else
             {
-                externalForce.x = 0f;
                 Decelerate(ref currentSpeed.x);
             }
         }

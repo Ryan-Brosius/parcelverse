@@ -14,21 +14,21 @@ public class SpringObject : MonoBehaviour
         {
             float gravity = Physics2D.gravity.y;
             float velocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * height);
+            Vector2 force = transform.up.normalized * velocity;
             if (collision.gameObject.TryGetComponent<MoveComponent>(out MoveComponent mc))
             {
-                var force = new Vector2(0.0f, velocity);
                 mc.SetCurrentSpeed(new Vector2(mc.GetCurrentSpeed().x, 0.0f));
-                mc.AddExternalForce(force * 1.5f);  // idk why the math isnt lined up nor do I feel like trying
+                mc.AddExternalForce(force * 1.7f);  // idk why the math isnt lined up nor do I feel like trying
             }
             else
             {
-                rb.velocity = new Vector2(rb.velocity.x, velocity);
+                rb.velocity = new Vector2((rb.velocity.x * .5f) + force.x, force.y);
             }
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        OnTriggerEnter2D(collision);
+        //OnTriggerEnter2D(collision);
     }
 }

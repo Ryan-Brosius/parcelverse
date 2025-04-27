@@ -19,9 +19,18 @@ public class GameManager : MonoBehaviour
     [Header("Level References")]
     [SerializeField] int level = 0;
 
+    [Header("Level Settings")]
+    [SerializeField] private bool restartBelowYLevel = false;
+    [SerializeField] private float yLevel = 0f;
+
+    private GameObject player;
+
     public static GameManager instance;
 
-    private bool restarting = false;
+    public bool restarting;
+
+    private List<GameObject> spawnedBoxes = new List<GameObject>();
+    private int maxSpawnedBoxes = 5;
 
     private void Awake()
     {
@@ -31,11 +40,25 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
     {
+        restarting = false;
         LevelStartShader(1f);
+    }
+
+    private void Update()
+    {
+        if (restartBelowYLevel)
+        {
+            if (player != null && player.transform.position.y <  yLevel)
+            {
+                restartLevel();
+            }
+        }
     }
 
     public void restartLevel()
@@ -45,12 +68,9 @@ public class GameManager : MonoBehaviour
 
         LevelEndShader(.5f);
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        asyncLoad.allowSceneActivation = false;
-
-        DOVirtual.DelayedCall(.6f, () =>
+        DOVirtual.DelayedCall(1.5f, () =>
         {
-            asyncLoad.allowSceneActivation = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         });
     }
 
@@ -136,5 +156,22 @@ public class GameManager : MonoBehaviour
             .9f,
             duration
         );
+    }
+
+    public void AddSpawnedBox(GameObject gameObject)
+    {
+        spawnedBoxes.Add(gameObject);
+        spawnedBoxes.RemoveAll( b => b == null );
+
+        if (spawnedBoxes.Count > maxSpawnedBoxes)
+        {
+            var box = spawnedBoxes[0];
+            spawnedBoxes.RemoveAt(0);
+
+            if (box.TryGetComponent<BreakableObject>(out BreakableObject breakable))
+            {
+                breakable.ExternalDestroySequence();
+            }
+        }
     }
 }

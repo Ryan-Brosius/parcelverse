@@ -45,4 +45,9 @@ public class BreakableObject : MonoBehaviour
 
         Destroy(gameObject, 0.3f);
     }
+
+    public void ExternalDestroySequence()
+    {
+        DestroySequence();
+    }
 }

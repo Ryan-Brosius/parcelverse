@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class MailGun : MonoBehaviour
 {
@@ -37,12 +38,15 @@ public class MailGun : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private Camera raycastCamera;
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject sprite;
 
     private MailMode currentMode = MailMode.Letter;
     private LineRenderer trajectoryLine;
     private Vector3 mouseWorldPos;
     private float localXPos;
     private float previousTimeScale;
+
+    public int CorrectSide { get; private set; } = 1;
 
     void Start()
     {
@@ -73,8 +77,18 @@ public class MailGun : MonoBehaviour
 
     void PutCorrectSide()
     {
-        if (mouseWorldPos.x > player.position.x) transform.localPosition = new Vector3(localXPos, transform.localPosition.y);
-        else transform.localPosition = new Vector3(-localXPos, transform.localPosition.y);
+        if (mouseWorldPos.x > player.position.x)
+        {
+            transform.localPosition = new Vector3(localXPos, transform.localPosition.y);
+            sprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            CorrectSide = 1;
+        }
+        else
+        {
+            transform.localPosition = new Vector3(-localXPos, transform.localPosition.y);
+            sprite.transform.localRotation = Quaternion.Euler(-180, 0, 0);
+            CorrectSide = -1;
+        }
     }
 
     void RotateTowardsMouse()
@@ -125,6 +139,10 @@ public class MailGun : MonoBehaviour
     {
         GameObject prefab = currentMode == MailMode.Letter ? letterPrefab : packagePrefab;
         GameObject projectile = Instantiate(prefab, firePoint.position, firePoint.rotation);
+        if (currentMode == MailMode.Package && GameManager.instance != null)
+        {
+            GameManager.instance.AddSpawnedBox(projectile);
+        }
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.velocity = firePoint.right * (currentMode == MailMode.Letter ? letterFireForce : packageFireForce);
     }

@@ -26,6 +26,8 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField] private float jumpInterruptMinimumVelocity = 3f;
 
+    [SerializeField] private Animator playerAnimator;
+
     public enum States
     {
         Idle,
@@ -159,6 +161,8 @@ public class PlayerBase : MonoBehaviour
         }
 
         mover.SetMoveDirection(movementDirection);
+
+        playerAnimator.SetFloat("Speed", Mathf.Abs(mover.GetCurrentSpeed().x));
     }
 
     private void FixedUpdate()
@@ -172,7 +176,7 @@ public class PlayerBase : MonoBehaviour
             mover.Move(IsGrounded());
         }
 
-        groundCheckTransform.localPosition = Vector2.down;
+        //groundCheckTransform.localPosition = Vector2.down;
     }
 
     private States GetPreviousState()

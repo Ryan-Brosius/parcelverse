@@ -12,7 +12,7 @@ public class Recipient : MonoBehaviour
         if (mailLayer.Contains(otherCollider))
         {
             hasReceivedMail = true;
-            dialogueBubble.SetActive(false);
+            //dialogueBubble.SetActive(false);
 
             if (GameManager.instance != null)
             {
