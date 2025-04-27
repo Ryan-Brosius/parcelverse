@@ -143,6 +143,11 @@ public class MailGun : MonoBehaviour
         {
             GameManager.instance.AddSpawnedBox(projectile);
         }
+        if (SoundManager.Instance != null)
+        {
+            var name = currentMode == MailMode.Letter ? "letter_shoot" : "box_shoot";
+            SoundManager.Instance.PlaySoundEffect(name, 1);
+        }
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.velocity = firePoint.right * (currentMode == MailMode.Letter ? letterFireForce : packageFireForce);
     }

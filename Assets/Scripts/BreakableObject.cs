@@ -38,6 +38,11 @@ public class BreakableObject : MonoBehaviour
 
     private void DestroySequence()
     {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySoundEffect("box_break", 1);
+        }
+
         Sequence shatterSeq = DOTween.Sequence();
 
         shatterSeq.Append(transform.DOShakeScale(0.1f, .2f, 10, 90, true))

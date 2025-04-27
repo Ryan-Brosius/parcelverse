@@ -2008,6 +2008,100 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8397177f3ee7961458dd8e86436bba12, type: 3}
+--- !u!1 &503415389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503415391}
+  - component: {fileID: 503415390}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &503415390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503415389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d301e3224dd89f4d8b1096e4b230952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeMultiplier: 1
+  soundEffects:
+  - SoundName: box_shoot
+    Clips:
+    - {fileID: 8300000, guid: 644bf896128de8441be864464f51c094, type: 3}
+    - {fileID: 8300000, guid: fbc963b0e8618dd4c9f8fc24c680508d, type: 3}
+    Volume: 1
+    Vary: 1
+  - SoundName: letter_shoot
+    Clips:
+    - {fileID: 8300000, guid: 75c9c6e04ac28394f84be4eb425d4241, type: 3}
+    - {fileID: 8300000, guid: 448059fb9370fc344b36ff63ca3b7038, type: 3}
+    Volume: 0.5
+    Vary: 1
+  - SoundName: player_jump
+    Clips:
+    - {fileID: 8300000, guid: 3d1a42d1d82d3194c8e7656189e2b8fd, type: 3}
+    Volume: 1
+    Vary: 1
+  - SoundName: spring_hit
+    Clips:
+    - {fileID: 8300000, guid: 7ce2ebd8effdf88499144bfd4c121b70, type: 3}
+    Volume: 0.8
+    Vary: 1
+  - SoundName: hit_hurt
+    Clips:
+    - {fileID: 8300000, guid: 89aedd76b4d56ca468685b074b3b2239, type: 3}
+    Volume: 1
+    Vary: 1
+  - SoundName: mail_give
+    Clips:
+    - {fileID: 8300000, guid: eef52c1be89b1bb44ac6bf564ba29927, type: 3}
+    Volume: 1
+    Vary: 1
+  - SoundName: box_break
+    Clips:
+    - {fileID: 8300000, guid: 60262d19209c6bc4291fc9233d6e2e70, type: 3}
+    - {fileID: 8300000, guid: 269fbffff4ae646499057767c2cf5177, type: 3}
+    Volume: 0.4
+    Vary: 1
+  - SoundName: floor_fall
+    Clips:
+    - {fileID: 8300000, guid: dda1112ad3965034fa3ee998f8f74350, type: 3}
+    Volume: 1
+    Vary: 1
+  - SoundName: level_start
+    Clips:
+    - {fileID: 8300000, guid: 08f0a3b2476baf548ad65e9b4aa644ea, type: 3}
+    Volume: 0.5
+    Vary: 1
+--- !u!4 &503415391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503415389}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.4634832, y: -0.6980012, z: -0.13246922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &512619776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14452,6 +14546,7 @@ MonoBehaviour:
   level: 0
   restartBelowYLevel: 0
   yLevel: 0
+  restarting: 0
 --- !u!4 &2107496910
 Transform:
   m_ObjectHideFlags: 0
@@ -14544,3 +14639,4 @@ SceneRoots:
   - {fileID: 2107496910}
   - {fileID: 1243901696}
   - {fileID: 611543485}
+  - {fileID: 503415391}

@@ -12,6 +12,7 @@ public class PitTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DestroyPit();
+            Destroy(gameObject);
         }
     }
 
@@ -30,6 +31,11 @@ public class PitTrigger : MonoBehaviour
             shatterSeq.Append(child.transform.DOScale(Vector3.zero, 0.6f));
 
             Destroy(child, 0.6f);
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySoundEffect("floor_fall", 1);
         }
     }
 }

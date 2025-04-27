@@ -1,4 +1,5 @@
 using UnityEngine;
+using static MailGun;
 
 public class MoveComponent : MonoBehaviour
 {
@@ -88,6 +89,11 @@ public class MoveComponent : MonoBehaviour
     private void Jump()
     {
         currentSpeed.y = Mathf.Abs(Mathf.Sqrt((jumpHeight * unitScalar) * -2f * (jumpGravity * 1f)));
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySoundEffect("player_jump", 1);
+        }
     }
 
     public void SetCurrentSpeed(Vector2 newSpeed)

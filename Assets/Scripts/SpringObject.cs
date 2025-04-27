@@ -25,6 +25,14 @@ public class SpringObject : MonoBehaviour
                 rb.velocity = new Vector2((rb.velocity.x * .5f) + force.x, force.y);
             }
         }
+
+        if (rb != null)
+        {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySoundEffect("spring_hit", 1);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

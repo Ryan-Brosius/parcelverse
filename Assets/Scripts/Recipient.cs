@@ -9,7 +9,7 @@ public class Recipient : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        if (mailLayer.Contains(otherCollider))
+        if (mailLayer.Contains(otherCollider) && !hasReceivedMail)
         {
             hasReceivedMail = true;
             //dialogueBubble.SetActive(false);
@@ -17,6 +17,11 @@ public class Recipient : MonoBehaviour
             if (GameManager.instance != null)
             {
                 GameManager.instance.TriggerLevelEnd();
+            }
+
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySoundEffect("mail_give", 1);
             }
         }
     }

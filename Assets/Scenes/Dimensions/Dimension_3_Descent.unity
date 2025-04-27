@@ -1891,7 +1891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 127032, guid: d6a6378baf728479c897f88a892620af, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 127032, guid: d6a6378baf728479c897f88a892620af, type: 3}
       propertyPath: m_TagString
@@ -2334,7 +2334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3133215736287441062, guid: da7564a3495dbe14b8d1b05414d5e879, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3277969585506853733, guid: da7564a3495dbe14b8d1b05414d5e879, type: 3}
       propertyPath: m_AnchorMax.y
@@ -67548,6 +67548,7 @@ MonoBehaviour:
   level: 0
   restartBelowYLevel: 0
   yLevel: 0
+  restarting: 0
 --- !u!4 &2107496910
 Transform:
   m_ObjectHideFlags: 0

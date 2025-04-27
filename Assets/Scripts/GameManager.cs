@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
     {
         restarting = false;
         LevelStartShader(1f);
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySoundEffect("level_start", 1);
+        }
     }
 
     private void Update()

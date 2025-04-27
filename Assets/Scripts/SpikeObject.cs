@@ -49,6 +49,11 @@ public class SpikeObject : MonoBehaviour
             {
                 if (!GameManager.instance.restarting)
                 {
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySoundEffect("hit_hurt", 1);
+                    }
+
                     Time.timeScale = 0f;
                     DOVirtual.DelayedCall(1.0f, () =>
                     {
