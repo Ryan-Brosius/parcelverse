@@ -3,8 +3,9 @@ using UnityEngine;
 public class Recipient : MonoBehaviour
 {
     [SerializeField] private LayerMask mailLayer;
-    [SerializeField] private GameObject dialogueBubble;
-    
+    [SerializeField] private GameObject notif;
+    [SerializeField] private ParticleSystem confetti;
+
     private bool hasReceivedMail = false;
     
     void OnTriggerEnter2D(Collider2D otherCollider)
@@ -23,6 +24,10 @@ public class Recipient : MonoBehaviour
             {
                 SoundManager.Instance.PlaySoundEffect("mail_give", 1);
             }
+
+            confetti.Play();
+            Destroy(otherCollider.gameObject);
+            Destroy(notif);
         }
     }
 }

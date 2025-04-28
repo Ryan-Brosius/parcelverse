@@ -83,6 +83,25 @@ public class GameManager : MonoBehaviour
     {
         LevelEndShader(2f);
 
+        if (SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings)
+        {
+            var fm = FindAnyObjectByType<FinaleManager>();
+            if (fm != null)
+            {
+                DOVirtual.DelayedCall(.1f, () =>
+                {
+                    fm.TriggerEnding();
+                });
+            }
+
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                Application.Quit();
+            });
+
+            return;
+        }
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         asyncLoad.allowSceneActivation = false;
 
